@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import urllib.request as urllib
 import time
+from tqdm import tqdm
 
 def get_data(url):
   hdr = {
@@ -15,11 +16,8 @@ def get_data(url):
     term_text = term.text.strip()
     cs_terms_file.writelines(term_text+'\n')
 
-cs_terms_file = open("cs_terms.txt", "w")
-
 urls = []
-for i in range(30, 326):
+for i in tqdm(range(326)):
+  cs_terms_file = open("cs_terms.txt", "a")
   get_data(f'https://www.oxfordreference.com/view/10.1093/acref/9780199688975.001.0001/acref-9780199688975?btog=chap&hide=true&page={i}&pageSize=20&skipEditions=true&sort=titlesort&source=%2F10.1093%2Facref%2F9780199688975.001.0001%2Facref-9780199688975')
-  time.sleep(2000)
-
-cs_terms_file.close()
+  cs_terms_file.close()
