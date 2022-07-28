@@ -9,5 +9,4 @@ app = Flask(__name__)
 def pun():
     user_input = request.args.get('input')
 
-    return json.dumps(user_input)
-#     return json.dumps(compute("eye of the tiger".split(), 'lev', 10, False))
+    return json.dumps(compute(user_input.split(), 'lev', 10, False))

@@ -78,11 +78,9 @@ def compute(name, method, top_n, recurse, puns=[]):
           # i.e. Pearl Jam -> Pearl Gem (Pearl is preserved)
           # i.e. Pearl Jam -> Perl Gem (shouldn't be possible)
           for nn in new_names:
-#             print('score: ', nn[0])
             printable_name = name[0:k] + [nn[1]] + name[k+1:]
-            puns.append(printable_name)
-#             print(printable_name)
-#             compute(printable_name, method, top_n, count + 1)
+            puns.append(" ".join(printable_name))
+
   if recurse:
     return compute(name=printable_name, method=method, top_n=top_n, recurse=False, puns=puns)
   else:

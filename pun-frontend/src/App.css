@@ -29,13 +29,22 @@
 }
 
 .custom-search {
-  /*border-top-left-radius: 5px !important;*/
-  /*border-bottom-left-radius: 5px !important;*/
-  border-radius: 25px;
+  margin:0 auto;
+  width:450px;
+  height:30px;
+  border-radius:30px;
+}
+
+.custom-search:hover {
+  box-shadow: 2px 2px 16px 2px #dcdcdc;
 }
 
 .title {
-  font-family: papyrus;
+  color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
+}
+
+.footer {
+  text-align: left;
 }
 
 @keyframes App-logo-spin {

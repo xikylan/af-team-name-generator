@@ -5,7 +5,12 @@ import HomeScreen from "./components/HomeScreen";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App"  style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '75vh',
+    }}>
         <HomeScreen/>
     </div>
   );
