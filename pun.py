@@ -35,9 +35,7 @@ def score_lev(str1, str2):
 def score_spacy(str1, str2):
   return nlp(str1).similarity(nlp(str2))
 
-def compute(name, method, top_n, count):
-  if count == 2:
-    return
+def compute(name, method, top_n, recurse, puns=[]):
   # stores top pun matches
   ranking = []
 
@@ -80,12 +78,16 @@ def compute(name, method, top_n, count):
           # i.e. Pearl Jam -> Pearl Gem (Pearl is preserved)
           # i.e. Pearl Jam -> Perl Gem (shouldn't be possible)
           for nn in new_names:
-            print('score: ', nn[0])
+#             print('score: ', nn[0])
             printable_name = name[0:k] + [nn[1]] + name[k+1:]
-            print(printable_name)
-            compute(printable_name, method, top_n, count + 1)
-
-          print()
+            puns.append(printable_name)
+#             print(printable_name)
+#             compute(printable_name, method, top_n, count + 1)
+  if recurse:
+    return compute(name=printable_name, method=method, top_n=top_n, recurse=False, puns=puns)
+  else:
+    return puns
+#           print()
 
 
 # load scorer
@@ -97,6 +99,6 @@ if __name__ == "__main__":
   band_name = input("Enter input: ").split()
 
   if recurse.lower() == 'yes':
-    compute(name=band_name, method=scorer, top_n=top_n, count=0)
+    print(compute(name=band_name, method=scorer, top_n=top_n, recurse=True))
   else:
-    compute(name=band_name, method=scorer, top_n=top_n, count=1)
+    print(compute(name=band_name, method=scorer, top_n=top_n, recurse=False))
