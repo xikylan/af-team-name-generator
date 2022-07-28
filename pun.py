@@ -85,7 +85,7 @@ def compute(name, method, top_n, recurse, puns=[]):
     return compute(name=printable_name, method=method, top_n=top_n, recurse=False, puns=puns)
   else:
     return puns
-#           print()
+
 
 
 # load scorer

@@ -45,6 +45,7 @@
 
 .footer {
   text-align: left;
+  display: inline;
 }
 
 @keyframes App-logo-spin {
