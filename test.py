@@ -2,6 +2,7 @@ import heapq
 import silabeador as sil
 import spacy
 from pyphonetics import RefinedSoundex
+from sys import argv
 
 
 # generates syllable permutations for better matching (silabeador sometimes breaks up words wierdly -> bad pun matching)
@@ -33,13 +34,9 @@ def score_lev(str1, str2):
 def score_spacy(str1, str2):
   return nlp(str1).similarity(nlp(str2))
 
-# load scorer
-nlp = spacy.load('en_core_web_md')
-
-#print("Enter a band name: ")
-#name = input().split()
-
-def compute(name, method, top_n):
+def compute(name, method, top_n, count):
+  if count == 2:
+    return
   # stores top pun matches
   ranking = []
 
@@ -62,8 +59,6 @@ def compute(name, method, top_n):
             elif method == 'lev':
               score = score_lev(term, syllable)
 
-            # score = nlp(term).similarity(nlp(syllable))
-            # score = score_spacy(term, syllable)
             heapq.heappush(ranking, (score, term))
 
           # get x highest rated scores
@@ -71,8 +66,6 @@ def compute(name, method, top_n):
             top = heapq.nlargest(top_n, ranking, key=lambda x: x[0])
           elif method == 'lev':
             top = heapq.nsmallest(top_n, ranking, key=lambda x: x[0])
-          # top = heapq.nlargest(3, ranking, key=lambda x: x[0])
-          #top = heapq.nsmallest(3, ranking, key=lambda x: x[0])
 
           # stores the recombined name/pun replaced name with no dupes
           new_names = set() 
@@ -87,11 +80,19 @@ def compute(name, method, top_n):
           # i.e. Pearl Jam -> Perl Gem (shouldn't be possible)
           for nn in new_names:
             print('score: ', nn[0])
-            print(name[0:k] + [nn[1]] + name[k+1:])
+            printable_name = name[0:k] + [nn[1]] + name[k+1:]
+            print(printable_name)
+            compute(printable_name, method, top_n, count + 1)
+
           print()
 
 
+# load scorer
+nlp = spacy.load('en_core_web_md')
+
 if __name__ == "__main__":
+  scorer, top_n = argv[1], int(argv[2])
+
   band_name = input("Enter band name:").split()
   
-  compute(name=band_name, method='lev', top_n=5)
+  compute(name=band_name, method=scorer, top_n=top_n, count=0)
