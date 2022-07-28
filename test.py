@@ -26,6 +26,7 @@ def permute(name):
 
   return permutations
 
+
 def score_lev(str1, str2):
   rs = RefinedSoundex()
   return rs.distance(str1, str2)
@@ -91,8 +92,11 @@ def compute(name, method, top_n, count):
 nlp = spacy.load('en_core_web_md')
 
 if __name__ == "__main__":
-  scorer, top_n = argv[1], int(argv[2])
+  scorer, top_n, recurse = argv[1], int(argv[2]), argv[3]
 
-  band_name = input("Enter band name:").split()
-  
-  compute(name=band_name, method=scorer, top_n=top_n, count=0)
+  band_name = input("Enter input: ").split()
+
+  if recurse.lower() == 'yes':
+    compute(name=band_name, method=scorer, top_n=top_n, count=0)
+  else:
+    compute(name=band_name, method=scorer, top_n=top_n, count=1)
