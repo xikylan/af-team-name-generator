@@ -2,3 +2,13 @@ pyphonetics
 python-Levenshtein
 beautifulsoup4
 spacy
+
+
+scrape for terms from:
+
+online
+github
+air table
+slack
+engineering wiki
+appfolio website
