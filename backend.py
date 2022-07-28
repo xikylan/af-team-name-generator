@@ -1,9 +1,13 @@
-from flask import Flask
+from flask import Flask, request
 from pun import compute
 import json
+import html
 
 app = Flask(__name__)
 
-@app.route("/generate/non_recursive/")
+@app.route("/generate/non_recursive")
 def pun():
-    return json.dumps(compute("eye of the tiger".split(), 'lev', 10, False))
+    user_input = request.args.get('input')
+
+    return json.dumps(user_input)
+#     return json.dumps(compute("eye of the tiger".split(), 'lev', 10, False))

@@ -44,7 +44,6 @@ abstraction
 abstract machine
 abstract reduction system
 abstract specification
-AC97
 accelerated graphics port
 acceleration time
 accelerator key
@@ -149,7 +148,6 @@ agile methods
 AGP
 AGV
 AI
-Aitken’s Δ2 process
 AIX
 ALARP principle
 aleph null
@@ -199,7 +197,6 @@ ancestor((of a node in a *tree))
 AND/OR graph
 AND gate
 AND operation
-Andreessen, Marc (1971–)
 Android
 animation
 ANN
@@ -237,7 +234,7 @@ application store
 application terminal
 applicative language
 approximation theory
-APSE
+appfolio
 arc((of a graph))
 architectural design
 architecture
@@ -2033,12 +2030,9 @@ ETB
 Ether
 Ethernet
 Ethernet card
-ETX/ACK
 Euclid’s algorithm
 Euclidean norm
 Eudora
-EUI-48
-EUI-64
 Euler’s formula
 Euler’s method
 Euler cycle
