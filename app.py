@@ -3,6 +3,7 @@ from pun import compute
 import json
 import html
 from flask.json import jsonify
+import random
 
 app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
@@ -24,3 +25,19 @@ def get_puns():
     user_input = request.args.get('input')
 
     return jsonify(compute(user_input.split(), 'lev', 10, False, puns=[]))
+
+@app.route("/random_name")
+def get_random_name():
+    with open('./scrape-data/musicians.txt') as f:
+        data = f.readlines()
+
+        chosen = random.choice(data)
+
+        puns = compute(chosen.split(), 'lev', 10, False, puns=[])
+
+        payload = {
+            "original": chosen,
+            "puns": puns
+        }
+
+        return json.dumps(payload)

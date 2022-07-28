@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button} from "@appfolio/react-gears";
+import {Button, ButtonToolbar, ButtonGroup} from "@appfolio/react-gears";
 import {List} from "@appfolio/react-gears";
 import {Input, Form} from "@appfolio/react-gears";
 
@@ -13,12 +13,27 @@ const SearchField = () => {
         fetch(url).then((response) => {
             return response.json();
         }).then( (data) => {
-            setPuns(data);
-        }).catch( () => console.log("error"));
+            let set = new Set();
+            data.forEach( (element) => set.add(element))
+            setPuns(Array.from(set));
+        }).catch( (e) => console.log(e));
+    };
+
+    const getRandom = () => {
+        const url = `/random_name`;
+
+        fetch(url).then((response) => {
+            return response.json();
+        }).then( (data) => {
+            setName(data.original)
+
+            let set = new Set();
+            data.puns.forEach( (element) => set.add(element))
+            setPuns(Array.from(set));
+        }).catch( (e) => console.log(e));
     };
 
     const onSubmit = (event) => {
-        console.log("HERE")
         event.preventDefault();
         getResults();
     };
@@ -28,6 +43,12 @@ const SearchField = () => {
         "margin-bottom": '30px'
     };
 
+    const styling2 = {
+        "margin-top": '10px',
+        "margin-bottom": '30px',
+        "margin-left": '15px'
+    };
+
     return(
         <div className={"title"}>
 
@@ -35,14 +56,22 @@ const SearchField = () => {
                 <Input placeholder="Enter Original Name: " id="hello"
                        onSubmit={onSubmit}
                        onChange={(event) => setName(event.target.value)}
-
+                       value={name}
                 />
             </Form>
 
-            <Button onClick={getResults} block color={"primary"} style={styling}>Generate Names</Button>
+
+            <div className={"container"}>
+                <ButtonToolbar>
+                    <Button onClick={getResults} color={"primary"} style={styling}>Generate Names</Button>
+                    <Button onClick={getRandom} color={"secondary"} style={styling2} size={"md"}>I'm Feeling Lucky</Button>
+                </ButtonToolbar>
+            </div>
+
+
 
             <List
-                height={'20vh'}
+                height={'40vh'}
                 items={puns}
                 striped={true}
                 flush={false}
