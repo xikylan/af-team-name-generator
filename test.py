@@ -1,6 +1,8 @@
 import heapq
 import silabeador as sil
 import spacy
+from pyphonetics import RefinedSoundex
+
 
 # generates syllable permutations for better matching (silabeador sometimes breaks up words wierdly -> bad pun matching)
 # radiohead -> [ra, dio, he, ad] (silabeador)
@@ -16,51 +18,80 @@ def permute(name):
   syllables = sil.syllabify(name)
   permutations = [[name], syllables]
 
-  for i in range(0, len(syllables)-1):
+  for i in range(0, len(syllables)):
     permutations.append(syllables[0:i] + [''.join(syllables[i:i+2])] + syllables[i+2:])
     if permutations[0] == permutations[-1]:
       permutations.pop()
 
   return permutations
 
+def score_lev(str1, str2):
+  rs = RefinedSoundex()
+  return rs.distance(str1, str2)
+
+
+def score_spacy(str1, str2):
+  return nlp(str1).similarity(nlp(str2))
+
 # load scorer
 nlp = spacy.load('en_core_web_md')
 
-print("Enter a band name: ")
-name = input().split()
+#print("Enter a band name: ")
+#name = input().split()
 
-# stores top pun matches
-ranking = []
+def compute(name, method, top_n):
+  # stores top pun matches
+  ranking = []
 
-with open('terms.txt', 'r') as f:
-  # all terms
-  terms = [term.lower() for term in f]
+  with open('terms.txt', 'r') as f:
+    # all terms
+    terms = [term.lower() for term in f]
 
-  # names might be multiple words, aka 'parts', i.e. 'Pearl Jam' -> ['pearl', 'jam']
-  # Each part is treated separately
-  for k, part in enumerate(name):
-    perms = permute(part)
+    # names might be multiple words, aka 'parts', i.e. 'Pearl Jam' -> ['pearl', 'jam']
+    # Each part is treated separately
+    for k, part in enumerate(name):
+      perms = permute(part)
 
-    for perm in perms:
+      for perm in perms:
 
-      for i, syllable in enumerate(perm):
-        # get the best pun match for this syllable
-        for term in terms:
-          score = nlp(term).similarity(nlp(syllable))
-          heapq.heappush(ranking, (score, term))
+        for i, syllable in enumerate(perm):
+          # get the best pun match for this syllable
+          for term in terms:
+            if method == 'spacy':
+              score = score_spacy(term, syllable)
+            elif method == 'lev':
+              score = score_lev(term, syllable)
 
-        # get x highest rated scores
-        top = heapq.nlargest(3, ranking, key=lambda x: x[0])
+            # score = nlp(term).similarity(nlp(syllable))
+            # score = score_spacy(term, syllable)
+            heapq.heappush(ranking, (score, term))
 
-        # stores the recombined name/pun replaced name with no dupes
-        new_names = set() 
-        for t in top:
-          new_names.add(''.join(perm[0:i]) + '[' + t[1].rstrip() + ']' + ''.join(perm[i+1:]))
+          # get x highest rated scores
+          if method == 'spacy':
+            top = heapq.nlargest(top_n, ranking, key=lambda x: x[0])
+          elif method == 'lev':
+            top = heapq.nsmallest(top_n, ranking, key=lambda x: x[0])
+          # top = heapq.nlargest(3, ranking, key=lambda x: x[0])
+          #top = heapq.nsmallest(3, ranking, key=lambda x: x[0])
 
-        # preserves names with mulitple words/parts
-        # i.e. Pearl Jam -> Perl Jam (Jam is preserved)
-        # i.e. Pearl Jam -> Pearl Gem (Pearl is preserved)
-        # i.e. Pearl Jam -> Perl Gem (shouldn't be possible)
-        for nn in new_names:
-          print(name[0:k] + [nn] + name[k+1:])
-        print()
+          # stores the recombined name/pun replaced name with no dupes
+          new_names = set() 
+          for t in top:
+            # new_names.add(''.join(perm[0:i]) + '[' + t[1].rstrip() + ']' + ''.join(perm[i+1:]))
+
+            new_names.add((t[0], ''.join(perm[0:i]) + t[1].rstrip() + ''.join(perm[i+1:])))
+
+          # preserves names with mulitple words/parts
+          # i.e. Pearl Jam -> Perl Jam (Jam is preserved)
+          # i.e. Pearl Jam -> Pearl Gem (Pearl is preserved)
+          # i.e. Pearl Jam -> Perl Gem (shouldn't be possible)
+          for nn in new_names:
+            print('score: ', nn[0])
+            print(name[0:k] + [nn[1]] + name[k+1:])
+          print()
+
+
+if __name__ == "__main__":
+  band_name = input("Enter band name:").split()
+  
+  compute(name=band_name, method='lev', top_n=5)
