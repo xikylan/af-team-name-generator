@@ -60,15 +60,12 @@ const SearchField = () => {
                 />
             </Form>
 
-
             <div className={"container"}>
                 <ButtonToolbar>
                     <Button onClick={getResults} color={"primary"} style={styling}>Generate Names</Button>
                     <Button onClick={getRandom} color={"secondary"} style={styling2} size={"md"}>I'm Feeling Lucky</Button>
                 </ButtonToolbar>
             </div>
-
-
 
             <List
                 height={'40vh'}

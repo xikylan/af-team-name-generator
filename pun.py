@@ -17,12 +17,12 @@ from sys import argv
 # etc...
 def permute(name):
   syllables = sil.syllabify(name)
-  permutations = [[name], syllables]
+  permutations = [syllables]
 
   for i in range(0, len(syllables)):
     permutations.append(syllables[0:i] + [''.join(syllables[i:i+2])] + syllables[i+2:])
-    if permutations[0] == permutations[-1]:
-      permutations.pop()
+#     if permutations[0] == permutations[-1]:
+#     permutations.pop()
 
   return permutations
 
