@@ -28,6 +28,34 @@
   color: #61dafb;
 }
 
+.custom-search {
+  margin:0 auto;
+  width:450px;
+  height:30px;
+  border-radius:30px;
+}
+
+.custom-search:hover {
+  box-shadow: 2px 2px 16px 2px #dcdcdc;
+}
+
+.title {
+  color: #111; font-family: 'Helvetica Neue', sans-serif; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center;
+}
+
+.footer {
+  text-align: left;
+  display: inline;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

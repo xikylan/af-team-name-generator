@@ -1,2 +1,7 @@
 /env
 get-pip.py
+.idea/
+.DS_Store
+__pycache__/
+node_modules/
+venv/

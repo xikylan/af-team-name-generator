@@ -3655,7 +3655,6 @@ Xeon
 XGA
 XHTML
 XML
-XML
 XML database
 XML schema
 XModem
