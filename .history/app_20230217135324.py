@@ -20,10 +20,6 @@ def add_header(r):
     r.headers['Cache-Control'] = 'public, max-age=0'
     return r
 
-@app.route('/')
-def hello_world():
-   return "Hello, World!"
-
 @app.route("/generate/non_recursive")
 def get_puns():
     user_input = request.args.get('input')
@@ -45,6 +41,3 @@ def get_random_name():
         }
 
         return json.dumps(payload)
-
-if __name__ == "__main__":
-   app.run(host='0.0.0.0', port=5000)

@@ -32,7 +32,7 @@ def get_puns():
 
 @app.route("/random_name")
 def get_random_name():
-    with open('./scrape-data/musicians.txt') as f:
+    with open('./') as f:
         data = f.readlines()
 
         chosen = random.choice(data)
