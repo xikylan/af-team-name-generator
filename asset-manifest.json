@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.c275c25a.css",
-    "main.js": "/static/js/main.5274eca4.js",
-    "static/js/787.6b7f3348.chunk.js": "/static/js/787.6b7f3348.chunk.js",
-    "index.html": "/index.html",
-    "main.c275c25a.css.map": "/static/css/main.c275c25a.css.map",
-    "main.5274eca4.js.map": "/static/js/main.5274eca4.js.map",
-    "787.6b7f3348.chunk.js.map": "/static/js/787.6b7f3348.chunk.js.map"
+    "main.css": "/af-team-name-generator/static/css/main.c275c25a.css",
+    "main.js": "/af-team-name-generator/static/js/main.5eab87b6.js",
+    "static/js/787.6b7f3348.chunk.js": "/af-team-name-generator/static/js/787.6b7f3348.chunk.js",
+    "index.html": "/af-team-name-generator/index.html",
+    "main.c275c25a.css.map": "/af-team-name-generator/static/css/main.c275c25a.css.map",
+    "main.5eab87b6.js.map": "/af-team-name-generator/static/js/main.5eab87b6.js.map",
+    "787.6b7f3348.chunk.js.map": "/af-team-name-generator/static/js/787.6b7f3348.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c275c25a.css",
-    "static/js/main.5274eca4.js"
+    "static/js/main.5eab87b6.js"
   ]
 }
