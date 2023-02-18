@@ -25,7 +25,7 @@ const SearchField = () => {
   };
 
   const getRandom = () => {
-    const url = `${url}/random_name`;
+    const url = `/random_name`;
 
     fetch(url)
       .then((response) => {
