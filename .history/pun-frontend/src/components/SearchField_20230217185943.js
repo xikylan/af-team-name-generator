@@ -11,7 +11,7 @@ const SearchField = () => {
     "https://flask-service.cdkuebc893os4.us-west-2.cs.amazonlightsail.com/";
 
   const getResults = () => {
-    const url = `${apiUrl}/generate/non_recursive?input=${name}`;
+    const url = `{apiUrl}/generate/non_recursive?input=${name}`;
 
     fetch(url)
       .then((response) => {
@@ -26,7 +26,7 @@ const SearchField = () => {
   };
 
   const getRandom = () => {
-    const url = `${apiUrl}/random_name`;
+    const url = `/random_name`;
 
     fetch(url)
       .then((response) => {

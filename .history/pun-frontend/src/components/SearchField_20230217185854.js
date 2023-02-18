@@ -6,7 +6,6 @@ import { Input, Form } from "@appfolio/react-gears";
 const SearchField = () => {
   const [name, setName] = useState();
   const [puns, setPuns] = useState();
-
   const apiUrl =
     "https://flask-service.cdkuebc893os4.us-west-2.cs.amazonlightsail.com/";
 
