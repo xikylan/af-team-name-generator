@@ -4,10 +4,9 @@ import json
 import html
 from flask.json import jsonify
 import random
-from flask_cors import CORS
+import flask_cors
 
 app = Flask(__name__)
-CORS(app)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.after_request
