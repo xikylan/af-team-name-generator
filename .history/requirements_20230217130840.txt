@@ -1,6 +1,0 @@
-pyphonetics
-python-Levenshtein
-beautifulsoup4
-spacy
-flask
-gunicorn
